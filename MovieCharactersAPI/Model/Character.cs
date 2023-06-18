@@ -18,6 +18,6 @@ namespace MovieCharactersAPI.Model
 
         [MaxLength(50)]
         public string CharacterName { get; set; }
-        public ICollection<Movie> MovieCharacters { get; set; }
+        //public ICollection<Movie> MovieCharacters { get; set; }
     }
 }
