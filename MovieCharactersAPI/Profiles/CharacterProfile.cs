@@ -6,11 +6,13 @@ namespace MovieCharactersAPI.Profiles
 {
     public class CharacterProfile : Profile
     {
-        public CharacterProfile()
+        public CharacterProfile() 
         {
-            CreateMap<Character, DTOCreateCharacter>().ReverseMap();
+            //mapping data from Character to DTOCreateCharacter
+            CreateMap<Character, DTOCreateCharacter>();
 
-            CreateMap<Character, DTOReadCharacter>().ReverseMap();
+            //mapping data from Character to DTOReadCharacter
+            CreateMap<Character, DTOReadCharacter>();
         }
     }
 }
