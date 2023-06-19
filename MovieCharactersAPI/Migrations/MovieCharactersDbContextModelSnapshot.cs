@@ -34,7 +34,7 @@ namespace MovieCharactersAPI.Migrations
 
                     b.HasIndex("MoviesId");
 
-                    b.ToTable("CharacterMovie");
+                    b.ToTable("CharacterMovie", (string)null);
                 });
 
             modelBuilder.Entity("MovieCharactersAPI.Model.Character", b =>
@@ -63,7 +63,7 @@ namespace MovieCharactersAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Characters");
+                    b.ToTable("Characters", (string)null);
                 });
 
             modelBuilder.Entity("MovieCharactersAPI.Model.Franchise", b =>
@@ -85,7 +85,7 @@ namespace MovieCharactersAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Franchises");
+                    b.ToTable("Franchises", (string)null);
                 });
 
             modelBuilder.Entity("MovieCharactersAPI.Model.Movie", b =>
@@ -128,7 +128,7 @@ namespace MovieCharactersAPI.Migrations
 
                     b.HasIndex("FranchiseId");
 
-                    b.ToTable("Movies");
+                    b.ToTable("Movies", (string)null);
                 });
 
             modelBuilder.Entity("CharacterMovie", b =>
