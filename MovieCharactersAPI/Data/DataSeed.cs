@@ -20,8 +20,8 @@ namespace MovieCharactersAPI.Data
         {
             List<Franchise> franchiseList = new List<Franchise>()
             {
-                new Franchise() { Name = "Gandalf the Grey", Description = "The White Wizard"},
-                new Franchise() { Name = "Harry Potter", Description = "The Chosen One"}
+                new Franchise() { Name = "Lord of the Rings", Description = "The Lord of the Rings is the saga of a group of sometimes reluctant heroes who set forth to save their world from consummate evil. Its many worlds and creatures were drawn from Tolkien's extensive knowledge of philology and folklore."},
+                new Franchise() { Name = "Harry Potter", Description = "The films chronicle the lives of a young wizard, Harry Potter, and his friends Hermione Granger and Ron Weasley, all of whom are students at Hogwarts School of Witchcraft and Wizardry."}
             };
             return franchiseList;
         }
