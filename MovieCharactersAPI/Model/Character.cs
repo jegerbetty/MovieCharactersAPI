@@ -16,6 +16,7 @@ namespace MovieCharactersAPI.Model
         public string? Gender { get; set; }
         public string? CharacterPicture { get; set; }
 
+        //Foreign key for many-to-many between Characters and Movies
         public ICollection<Movie> Movies { get; set; }
     }
 }

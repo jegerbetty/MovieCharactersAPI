@@ -19,9 +19,11 @@ namespace MovieCharactersAPI.Model
         public string Director { get; set; }
         public string? MoviePicture { get; set; }
         public string? MovieTrailer { get; set; }
+        
+        //Foreign key for one to many between Franchise to Movie (Movie is dependent)
         public Franchise? Franchise { get; set; }
-        //public int? FranchiseId { get; }
 
+        //Foreign key for many-to-many between Characters and Movies
         public ICollection<Character> Characters { get; set; }
     }
 }
