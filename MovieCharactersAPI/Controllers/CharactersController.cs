@@ -2,39 +2,57 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersAPI.Data;
+using MovieCharactersAPI.DataTransferObjects.CharacterDTO;
 using MovieCharactersAPI.Model;
 
 namespace MovieCharactersAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("Application/json")] //for documenting the media type
+    [Consumes("Application/json")]
+
     public class CharactersController : ControllerBase
     {
         private readonly MovieCharactersDbContext _context;
+        private readonly IMapper _mapper; //underscore mapper is a local variable (but it's unused - necessary?)
 
-        public CharactersController(MovieCharactersDbContext context)
+        public CharactersController(MovieCharactersDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
+
+        /// <summary>
+        /// Get all the characters
+        /// </summary>
+        /// <returns>Return the list of characters</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
 
         // GET: api/Characters
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Character>>> GetCharacters()
+        public async Task<ActionResult<IEnumerable<DTOReadCharacter>>> GetCharacters()
         {
           if (_context.Characters == null)
           {
               return NotFound();
           }
-            return await _context.Characters.ToListAsync();
+            var characterModel = await _context.Characters.ToListAsync();
+            var characterDto = _mapper.Map<List<DTOReadCharacter>>(characterModel);
+            return Ok(characterDto);
         }
 
         // GET: api/Characters/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Character>> GetCharacter(int id)
+        public async Task<ActionResult<DTOReadCharacter>> GetCharacter(int id)
         {
           if (_context.Characters == null)
           {
@@ -47,7 +65,7 @@ namespace MovieCharactersAPI.Controllers
                 return NotFound();
             }
 
-            return character;
+            return _mapper.Map<DTOReadCharacter>(character);
         }
 
         // PUT: api/Characters/5
@@ -84,16 +102,17 @@ namespace MovieCharactersAPI.Controllers
         // POST: api/Characters
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Character>> PostCharacter(Character character)
+        public async Task<ActionResult<DTOReadCharacter>> PostCharacter(DTOCreateCharacter character)
         {
           if (_context.Characters == null)
           {
               return Problem("Entity set 'MovieCharactersDbContext.Characters'  is null.");
           }
-            _context.Characters.Add(character);
+            var characterModel = _mapper.Map<Character>(character);
+            _context.Characters.Add(characterModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
+            return CreatedAtAction("GetCharacter", new { id = characterModel.Id }, character);
         }
 
         // DELETE: api/Characters/5

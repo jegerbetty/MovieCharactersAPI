@@ -2,24 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersAPI.Data;
+using MovieCharactersAPI.DataTransferObjects.FranchiseDTO;
 using MovieCharactersAPI.Model;
 
 namespace MovieCharactersAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("Application/json")] //for documenting the media type
+    [Consumes("Application/json")]
+
     public class FranchisesController : ControllerBase
     {
         private readonly MovieCharactersDbContext _context;
+        private readonly IMapper _mapper; //underscore mapper is a local variable
 
-        public FranchisesController(MovieCharactersDbContext context)
+        public FranchisesController(MovieCharactersDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
+
+        /// <summary>
+        /// Get all the franchises
+        /// </summary>
+        /// <returns>Return the list of franchises</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
 
         // GET: api/Franchises
         [HttpGet]
@@ -29,12 +44,14 @@ namespace MovieCharactersAPI.Controllers
           {
               return NotFound();
           }
-            return await _context.Franchises.ToListAsync();
+            var franchiseModel = await _context.Franchises.ToListAsync();
+            var franchiseDto = _mapper.Map<List<DTOReadFranchise>>(franchiseModel);
+            return Ok(franchiseDto);
         }
 
         // GET: api/Franchises/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Franchise>> GetFranchise(int id)
+        public async Task<ActionResult<DTOReadFranchise>> GetFranchise(int id)
         {
           if (_context.Franchises == null)
           {
@@ -47,7 +64,7 @@ namespace MovieCharactersAPI.Controllers
                 return NotFound();
             }
 
-            return franchise;
+            return _mapper.Map<DTOReadFranchise>(franchise);
         }
 
         // PUT: api/Franchises/5
@@ -84,16 +101,17 @@ namespace MovieCharactersAPI.Controllers
         // POST: api/Franchises
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Franchise>> PostFranchise(Franchise franchise)
+        public async Task<ActionResult<DTOReadFranchise>> PostFranchise(DTOCreateFranchise franchise)
         {
           if (_context.Franchises == null)
           {
               return Problem("Entity set 'MovieCharactersDbContext.Franchises'  is null.");
           }
-            _context.Franchises.Add(franchise);
+            var franchiseModel = _mapper.Map<Franchise>(franchise);
+            _context.Franchises.Add(franchiseModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetFranchise", new { id = franchise.Id }, franchise);
+            return CreatedAtAction("GetFranchise", new { id = franchiseModel.Id }, franchise);
         }
 
         // DELETE: api/Franchises/5

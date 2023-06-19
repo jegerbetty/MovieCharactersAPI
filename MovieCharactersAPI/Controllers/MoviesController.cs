@@ -2,39 +2,56 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersAPI.Data;
+using MovieCharactersAPI.DataTransferObjects.MovieDTO;
 using MovieCharactersAPI.Model;
 
 namespace MovieCharactersAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Produces("Application/json")] //for documenting the media type
+    [Consumes("Application/json")]
+
     public class MoviesController : ControllerBase
     {
         private readonly MovieCharactersDbContext _context;
+        private readonly IMapper _mapper; //underscore mapper is a local variable
 
-        public MoviesController(MovieCharactersDbContext context)
+        public MoviesController(MovieCharactersDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
+
+        /// <summary>
+        /// Get all the movies
+        /// </summary>
+        /// <returns>Return the list of movies</returns>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
 
         // GET: api/Movies
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Movie>>> GetMovies()
+        public async Task<ActionResult<IEnumerable<DTOReadMovie>>> GetMovies()
         {
           if (_context.Movies == null)
           {
               return NotFound();
           }
-            return await _context.Movies.ToListAsync();
+            var movieModel = await _context.Movies.ToListAsync();
+            var movieDto = _mapper.Map<List<DTOReadMovie>>(movieModel);
+            return movieDto;
         }
 
         // GET: api/Movies/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> GetMovie(int id)
+        public async Task<ActionResult<DTOReadMovie>> GetMovie(int id)
         {
           if (_context.Movies == null)
           {
@@ -47,7 +64,7 @@ namespace MovieCharactersAPI.Controllers
                 return NotFound();
             }
 
-            return movie;
+            return _mapper.Map<DTOReadMovie>(movie);
         }
 
         // PUT: api/Movies/5
@@ -84,16 +101,17 @@ namespace MovieCharactersAPI.Controllers
         // POST: api/Movies
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Movie>> PostMovie(Movie movie)
+        public async Task<ActionResult<DTOReadMovie>> PostMovie(DTOCreateMovie movie)
         {
           if (_context.Movies == null)
           {
               return Problem("Entity set 'MovieCharactersDbContext.Movies'  is null.");
           }
-            _context.Movies.Add(movie);
+            var movieModel = _mapper.Map<Movie>(movie);
+            _context.Movies.Add(movieModel);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
+            return CreatedAtAction("GetMovie", new { id = movieModel.Id }, movie);
         }
 
         // DELETE: api/Movies/5
