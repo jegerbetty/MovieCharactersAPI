@@ -12,8 +12,8 @@ using MovieCharactersAPI.Data;
 namespace MovieCharactersAPI.Migrations
 {
     [DbContext(typeof(MovieCharactersDbContext))]
-    [Migration("20230619153535_AddedForeignKeysAndSeededData")]
-    partial class AddedForeignKeysAndSeededData
+    [Migration("20230619170351_ForeignKeys")]
+    partial class ForeignKeys
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,15 +26,15 @@ namespace MovieCharactersAPI.Migrations
 
             modelBuilder.Entity("CharacterMovie", b =>
                 {
-                    b.Property<int>("MovieCharactersId")
+                    b.Property<int>("CharactersId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MovieCharactersId1")
+                    b.Property<int>("MoviesId")
                         .HasColumnType("int");
 
-                    b.HasKey("MovieCharactersId", "MovieCharactersId1");
+                    b.HasKey("CharactersId", "MoviesId");
 
-                    b.HasIndex("MovieCharactersId1");
+                    b.HasIndex("MoviesId");
 
                     b.ToTable("CharacterMovie");
                 });
@@ -66,32 +66,6 @@ namespace MovieCharactersAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Characters");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Alias = "The White Wizard",
-                            CharacterPicture = "https://static.wikia.nocookie.net/lotr/images/e/e7/Gandalf_the_Grey.jpg/revision/latest?cb=20121110131754",
-                            FullName = "Gandalf the Grey",
-                            Gender = "Male"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Alias = "The Chosen One",
-                            CharacterPicture = "https://periskop.no/wp-content/uploads/2021/02/Harry-Potter-med-tryllestaven.jpg",
-                            FullName = "Harry Potter",
-                            Gender = "Male"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Alias = "He Who Shall Not Be Named",
-                            CharacterPicture = "https://upload.wikimedia.org/wikipedia/en/a/a3/Lordvoldemort.jpg",
-                            FullName = "Voldemort",
-                            Gender = "Male"
-                        });
                 });
 
             modelBuilder.Entity("MovieCharactersAPI.Model.Franchise", b =>
@@ -114,20 +88,6 @@ namespace MovieCharactersAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Franchises");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "The Lord of the Rings is the saga of a group of sometimes reluctant heroes who set forth to save their world from consummate evil. Its many worlds and creatures were drawn from Tolkien's extensive knowledge of philology and folklore.",
-                            Name = "Lord of the Rings"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "The films chronicle the lives of a young wizard, Harry Potter, and his friends Hermione Granger and Ron Weasley, all of whom are students at Hogwarts School of Witchcraft and Wizardry.",
-                            Name = "Harry Potter"
-                        });
                 });
 
             modelBuilder.Entity("MovieCharactersAPI.Model.Movie", b =>
@@ -143,7 +103,7 @@ namespace MovieCharactersAPI.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("FranchiseId1")
+                    b.Property<int?>("FranchiseId")
                         .HasColumnType("int");
 
                     b.Property<string>("MovieGenre")
@@ -168,54 +128,22 @@ namespace MovieCharactersAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FranchiseId1");
+                    b.HasIndex("FranchiseId");
 
                     b.ToTable("Movies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Director = "Peter Jackson",
-                            MovieGenre = "Fantasy",
-                            MoviePicture = "https://m.media-amazon.com/images/I/51ILUdMuieL._AC_UF1000,1000_QL80_.jpg",
-                            MovieTitle = "The Fellowship of the Ring",
-                            MovieTrailer = "https://www.youtube.com/watch?v=V75dMMIW2B4&ab_channel=Movieclips",
-                            ReleaseYear = 2001
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Director = "Peter Jackson",
-                            MovieGenre = "Fantasy",
-                            MoviePicture = "https://m.media-amazon.com/images/I/91+ni21hctL._UF1000,1000_QL80_.jpg",
-                            MovieTitle = "The Return of the King",
-                            MovieTrailer = "https://www.youtube.com/watch?v=y2rYRu8UW8M&ab_channel=RottenTomatoesClassicTrailers",
-                            ReleaseYear = 2003
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Director = "Mike Newell",
-                            MovieGenre = "Magical Adventure",
-                            MoviePicture = "https://upload.wikimedia.org/wikipedia/en/c/c9/Harry_Potter_and_the_Goblet_of_Fire_Poster.jpg",
-                            MovieTitle = "Harry Potter and the Goblet of Fire",
-                            MovieTrailer = "https://www.youtube.com/watch?v=3EGojp4Hh6I&ab_channel=RottenTomatoesClassicTrailers",
-                            ReleaseYear = 2005
-                        });
                 });
 
             modelBuilder.Entity("CharacterMovie", b =>
                 {
                     b.HasOne("MovieCharactersAPI.Model.Character", null)
                         .WithMany()
-                        .HasForeignKey("MovieCharactersId")
+                        .HasForeignKey("CharactersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("MovieCharactersAPI.Model.Movie", null)
                         .WithMany()
-                        .HasForeignKey("MovieCharactersId1")
+                        .HasForeignKey("MoviesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -224,7 +152,7 @@ namespace MovieCharactersAPI.Migrations
                 {
                     b.HasOne("MovieCharactersAPI.Model.Franchise", "Franchise")
                         .WithMany("Movies")
-                        .HasForeignKey("FranchiseId1");
+                        .HasForeignKey("FranchiseId");
 
                     b.Navigation("Franchise");
                 });

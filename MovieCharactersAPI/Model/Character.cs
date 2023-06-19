@@ -16,6 +16,6 @@ namespace MovieCharactersAPI.Model
         public string? Gender { get; set; }
         public string? CharacterPicture { get; set; }
 
-        public ICollection<Movie> MovieCharacters { get; set; }
+        public ICollection<Movie> Movies { get; set; }
     }
 }
