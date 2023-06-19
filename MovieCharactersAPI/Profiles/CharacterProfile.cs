@@ -9,10 +9,10 @@ namespace MovieCharactersAPI.Profiles
         public CharacterProfile() 
         {
             //mapping data from Character to DTOCreateCharacter
-            CreateMap<Character, DTOCreateCharacter>();
+            CreateMap<Character, DTOCreateCharacter>().ReverseMap();
 
             //mapping data from Character to DTOReadCharacter
-            CreateMap<Character, DTOReadCharacter>();
+            CreateMap<Character, DTOReadCharacter>().ReverseMap();
         }
     }
 }
