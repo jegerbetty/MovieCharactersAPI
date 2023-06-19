@@ -1,5 +1,8 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using MovieCharactersAPI.Data;
+using MovieCharactersAPI.Profiles;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +18,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Automapper (do not have startup.cs - this is what I found was the solution - along with Profile classes
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); 
+//builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly()); - tried this - didn't work
+//builder.Services.AddAutoMapper(typeof(Program)); - tried this alone, as well as with the line below
+//builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
