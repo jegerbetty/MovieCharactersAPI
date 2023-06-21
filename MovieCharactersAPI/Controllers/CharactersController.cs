@@ -20,7 +20,7 @@ namespace MovieCharactersAPI.Controllers
     public class CharactersController : ControllerBase
     {
         private readonly MovieCharactersDbContext _context;
-        private readonly IMapper _mapper; //underscore mapper is a local variable (but it's unused - necessary?)
+        private readonly IMapper _mapper; //underscore mapper is a local variable
 
         public CharactersController(MovieCharactersDbContext context, IMapper mapper)
         {
