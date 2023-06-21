@@ -17,6 +17,6 @@ namespace MovieCharactersAPI.DataTransferObjects.CharacterDTO
         public string? CharacterPicture { get; set; }
 
         //Foreign key for many-to-many between Characters and Movies
-        public ICollection<Movie> Movies { get; set; }
+        //public ICollection<Movie> Movies { get; set; }
     }
 }

@@ -20,6 +20,6 @@ namespace MovieCharactersAPI.DataTransferObjects.MovieDTO
         public string? MovieTrailer { get; set; }
 
         //Foreign key for many-to-many between Characters and Movies
-        public ICollection<Character> Characters { get; set; }
+        //public ICollection<Character> Characters { get; set; }
     }
 }
