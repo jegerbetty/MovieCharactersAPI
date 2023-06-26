@@ -16,7 +16,7 @@ namespace MovieCharactersAPI.Model
         public string? Gender { get; set; }
         public string? CharacterPicture { get; set; }
 
-        //Foreign key for many-to-many between Characters and Movies
-        public ICollection<Movie> Movies { get; set; }
+        //Navigation property to create Foreign key for many-to-many between Characters and Movies
+        public ICollection<Movie> Movies { get; set; } //New table CharacterMovie created and Foreign Key MoviesId created in migration - see migration ForeignKeys
     }
 }
