@@ -19,7 +19,7 @@ namespace MovieCharactersAPI.DataTransferObjects.MovieDTO
         public string? MoviePicture { get; set; }
         public string? MovieTrailer { get; set; }
 
-        //Foreign key for many-to-many between Characters and Movies
+        //Collection of entities creates circular reference error - cannot be included here
         //public ICollection<Character> Characters { get; set; }
     }
 }
