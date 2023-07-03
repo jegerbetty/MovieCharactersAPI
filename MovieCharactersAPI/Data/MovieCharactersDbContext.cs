@@ -22,11 +22,11 @@ namespace MovieCharactersAPI.Data
 
         //ModelBuilder
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Character>().HasData(DataSeed.GetCharacters());
-            modelBuilder.Entity<Franchise>().HasData(DataSeed.GetFranchises());
-            modelBuilder.Entity<Movie>().HasData(DataSeed.GetMovies());
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+          //  modelBuilder.Entity<Character>().HasData(DataSeed.GetCharacters());
+          //  modelBuilder.Entity<Franchise>().HasData(DataSeed.GetFranchises());
+          //  modelBuilder.Entity<Movie>().HasData(DataSeed.GetMovies());
+       // }
     }
 }
