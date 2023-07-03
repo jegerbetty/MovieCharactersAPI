@@ -34,7 +34,7 @@ namespace MovieCharactersAPI.Migrations
 
                     b.HasIndex("MoviesId");
 
-                    b.ToTable("CharacterMovie", (string)null);
+                    b.ToTable("CharacterMovie");
                 });
 
             modelBuilder.Entity("MovieCharactersAPI.Model.Character", b =>
@@ -63,7 +63,7 @@ namespace MovieCharactersAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Characters", (string)null);
+                    b.ToTable("Characters");
                 });
 
             modelBuilder.Entity("MovieCharactersAPI.Model.Franchise", b =>
@@ -75,17 +75,17 @@ namespace MovieCharactersAPI.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Franchises", (string)null);
+                    b.ToTable("Franchises");
                 });
 
             modelBuilder.Entity("MovieCharactersAPI.Model.Movie", b =>
@@ -128,7 +128,7 @@ namespace MovieCharactersAPI.Migrations
 
                     b.HasIndex("FranchiseId");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("CharacterMovie", b =>
