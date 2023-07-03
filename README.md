@@ -79,7 +79,7 @@ We were being taught in .NET 5 and Visual Studio 2019, whilst I was using .NET 6
 I used this discussion on StackOverflow to understand how to work the application without Startup.cs: https://stackoverflow.com/questions/70952271/startup-cs-class-is-missing-in-net-6
 
 
-As I was using .NET 6 and therefore inferred Foreign Keys, instead of defining them (the migration would fail if I tried defining them, so I had to infer), I could not work out how to seed data to the Foreign Keys and to the joining table CharacterMovie (created for the many-to-many relationship). I therefore added the data in the tables directly in SQLServer, instead of through the application. 
+As I was using .NET 6 and therefore inferred Foreign Keys, instead of defining them (the migration would fail if I tried defining them, so I had to infer - similar to this issue: https://stackoverflow.com/questions/70306762/foreign-key-created-in-shadow-and-appending-random-1-to-column-name-aspnet-ef), I could not work out how to seed data to the Foreign Keys and to the joining table CharacterMovie (created for the many-to-many relationship). I therefore added the data in the tables directly in SQLServer, instead of through the application. 
 
 * If anyone can help me with how I could have done this, it would be greatly appreciated
 
@@ -96,6 +96,7 @@ I have used the following to make this console application:
 * C#
 * .NET6
 * ASP.NET Core
+* AutoMapper
 * Microsoft Visual Studio 2022
 * SQLServer
 * Swagger
