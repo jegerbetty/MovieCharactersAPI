@@ -74,13 +74,18 @@ Documentation with Swagger:
 
 
 ## Notes on the code
-As I was using .NET 6 and therefore inferred Foreign Keys, instead of defining them, I could not work out how to seed data to the Foreign Keys and to the joining table CharacterMovie, created for the many-to-many relationship. I therefore created the data in the tables directly in SQLServer, instead of through the application. 
+We were being taught in .NET 5 and Visual Studio 2019, whilst I was using .NET 6 and Visual Studio 2022. This posed a few problems whilst completing this assignment. 
 
-* If anyone can help me with this, it would be greatly appreciated
+I used this discussion on StackOverflow to understand how to work the application without Startup.cs: https://stackoverflow.com/questions/70952271/startup-cs-class-is-missing-in-net-6
+
+
+As I was using .NET 6 and therefore inferred Foreign Keys, instead of defining them (the migration would fail if I tried defining them, so I had to infer), I could not work out how to seed data to the Foreign Keys and to the joining table CharacterMovie (created for the many-to-many relationship). I therefore added the data in the tables directly in SQLServer, instead of through the application. 
+
+* If anyone can help me with how I could have done this, it would be greatly appreciated
 
 Not all my DTOs seem to be working properly. The Get Character by Id is displaying more columns from the table than what I have defined in the DTO. 
 
-* If anyone can help me with this, it would be greatly appreciated
+* If anyone can help me solve this, it would be greatly appreciated
 
 I was not able to get the help to fully complete this assignment, but I think most of it should be correct and in alignment with what was required from the assignment. If anyone wants to help me complete this - please reach out. 
 
@@ -93,4 +98,5 @@ I have used the following to make this console application:
 * ASP.NET Core
 * Microsoft Visual Studio 2022
 * SQLServer
+* Swagger
 
