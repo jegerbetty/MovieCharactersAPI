@@ -8,8 +8,8 @@ namespace MovieCharactersAPI.Profiles
     {
         public CharacterProfile() 
         {
-            //mapping data from Character to DTOCreateCharacter
-            CreateMap<Character, DTOCreateCharacter>().ReverseMap();
+            //mapping data from DTOCreateCharacter to Character
+            CreateMap<DTOCreateCharacter, Character>().ReverseMap();
 
             //mapping data from Character to DTOReadCharacter
             CreateMap<Character, DTOReadCharacter>().ReverseMap();

@@ -8,8 +8,8 @@ namespace MovieCharactersAPI.Profiles
     {
         public FranchiseProfile()
         {
-            //mapping data from Franchise to DTOCreateFranchise
-            CreateMap<Franchise, DTOCreateFranchise>().ReverseMap();
+            //mapping data from DTOCreateFranchise to Franchise
+            CreateMap<DTOCreateFranchise, Franchise>().ReverseMap();
 
             //mapping data from Franchise to DTOReadFranchise
             CreateMap<Franchise, DTOReadFranchise>().ReverseMap();
